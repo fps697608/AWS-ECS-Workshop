@@ -25,10 +25,15 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * Click **EC2** then click **Next: Permissions**. Because Cloud9 is based on Amazon EC2, therefore we need to choose EC2.
 * Search and select "**AmazonEC2ContainerRegistryFullAccess**" then Click **Next: Review**.
 * For **Role Name** field, type "**AllowEC2AccessECR**" and click **Create Role**.
+* Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role you just create** and click  **Apply**.
+![refreshRole.png](images/refreshRole.png)
+
 
 ### Create a Docker Image
 [Amazon ECS task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instance in your clusters. In this section, we create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
 
+
+*In [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/), click **Open IDE** buttom for the environent which you created.
 * In Cloud9 environment, we can use terminal in the lower panel. ![terminalBlock.png](images/terminalBlock.png)
 * Verify that whether Docker is installed in Cloud9 environment with following command. In general, Cloud9 has installed Docker by default and therefore we don't need to install ourselves. 
 	
