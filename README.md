@@ -33,7 +33,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 [Amazon ECS task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instance in your clusters. In this section, we create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
 
 
-*In [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/), click **Open IDE** buttom for the environent which you created.
+* In [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/), click **Open IDE** buttom for the environent which you created.
 * In Cloud9 environment, we can use terminal in the lower panel. ![terminalBlock.png](images/terminalBlock.png)
 * Verify that whether Docker is installed in Cloud9 environment with following command. In general, Cloud9 has installed Docker by default and therefore we don't need to install ourselves. 
 	
@@ -77,7 +77,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 	  :wq!
 
 * Build the Docker image from your *Dockerfile*.
-  >Note: the “hello-world” is your docker image name;*
+  >Note: the “hello-world” is your docker image name.
 
 	  docker build -t hello-world .
     
@@ -151,13 +151,13 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 	  [ec2-user@ip-10-10-1-244 ~]$ docker tag hello-world:latest 64691493xxxx.dkr.ecr.us-west-2.amazonaws.com/docker-demo:latest
 
-	>Note: “hello world” is docker image; “64691493xxxx” is your AWS account ID; “docker-demo” is repository you created step 5.5.
+	>Note: 1. “hello world” is docker image. 2. “64691493xxxx” is your AWS account ID. 3. “docker-demo” is the repository you created in previous step.
 
 	Run the following command to push this image to your newly created AWS repository:
 		
       [ec2-user@ip-10-10-1-244 ~]$ docker push 64691493xxxx.dkr.ecr.us-west-2.amazonaws.com/docker-demo:latest
     
-	>Note: “docker-demo” is repository you created step 5.5.
+	>Note: “docker-demo” is the repository you created in previous step.
 
 	![5.png](/images/5.png)
 
