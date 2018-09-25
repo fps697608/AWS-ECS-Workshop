@@ -97,65 +97,32 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 
 
-### Create a Docker Repository for ECS
+### Create a Repository for ECS
 
 * In the **AWS Management Console**, on the **service**	menu, click **EC2 Container Service**.
 
 * Confirm you are in **N.Virginia** region.
 
-* Click **Get started**.
-
-* On the Select options to configure, leave both of two check box as default, click **Continue**.
+* If a welcome page is displayed, click **Get started**, otherwise, click **Create repository**.
 
 * Type Repository name: **docker-demo**
 
 * Click **Next step**.
 
-* You will see **Successfully created repository** message on this page.
+* You will see **Successfully created repository** message on the page.
 
-* Back to your **AWSCLI Instance RDP client**.
-
-* Open **cmd.exe** tool.
-
-* Enter **aws --version** to verify you have successful install AWS CLI tool.
-
-	  C:\Users\ecloud> aws --version
-	  aws-cli/1.11.126 Python/2.7.9 Windows/8 botocore/1.5.89
-
-* Enter **aws configure**, and follow the information to enter **Access key** and **Secret access key**.
-  >Note: the Access Key and Secret access key has been provided you through eCloudvalley.
-
-      C:\Users\ecloud> aws configure
-      AWS Access Key ID [****************HRIQ]:
-      AWS Secret Access Key [****************ZjEs]:
-      Default region name [us-west-2]: us-east-1
-      Default output format [text]: press ENTER
-
-* Retrieve the *docker login* command that you can use to authenticate your Docker client to your registry:
-
-      C:\Users\ecloud> aws ecr get-login --no-include-email --region us-east-1
-
-* Retrieve the *docker login* command that you use to authenticate our Docker client to your registry.
-
-    ![4.png](/images/4.png)
-
-* Choose *docker login* command, right click the mouse for copy. (Note: do not copy blank command)
-
-* You will receive *Login succeeded* message.
-
-	>Note: If you receive an “Unknown options: --no include-email” error, install the latest version of the AWS CLI.
 
 ### Tag your Image and Push it to Amazon ECR
 
-* After the build complete, tag your image so you can push the image to this repository.
+* After creating an ECR repository, tag your image so you can push the image to this repository.
 
-	  [ec2-user@ip-10-10-1-244 ~]$ docker tag hello-world:latest 64691493xxxx.dkr.ecr.us-west-2.amazonaws.com/docker-demo:latest
+	  docker tag hello-world:latest 64691493xxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
 
-	>Note: 1. “hello world” is docker image. 2. “64691493xxxx” is your AWS account ID. 3. “docker-demo” is the repository you created in previous step.
+	>Note: “hello-world” is the name of docker image, “64691493xxxx” is your AWS account ID and “docker-demo” is the repository you created in previous step.
 
 	Run the following command to push this image to your newly created AWS repository:
 		
-      [ec2-user@ip-10-10-1-244 ~]$ docker push 64691493xxxx.dkr.ecr.us-west-2.amazonaws.com/docker-demo:latest
+      docker push 64691493xxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
     
 	>Note: “docker-demo” is the repository you created in previous step.
 
