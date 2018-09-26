@@ -13,29 +13,29 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * Sign in to the AWS Management Console, and then open [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/).
 * If prompted, type the email address for the AWS account root user, and then choose Next.
 * If a welcome page is displayed, for **New AWS Cloud9 environment**, choose **Create environment**. Otherwise, choose **Create environment**.
-* On the **Name environment**	page, for **Name**, type a name for your environment. Optionally add a description to your environment.
-* Leave everything as default and click Next Step.
+* On the **Name environment**	page, **type a name** for your environment. Optionally add a description to your environment.
+* Leave everything as default and click **Next Step**.
 * Click **Create environment**. (It would  take 30~60 seconds to create your environment.)
-* Because we want to accomplish access control by attaching a role ourself, we need to turn off the Cloud9 temporarily provided IAM credentials first.
+* Because we want to accomplish access control by attaching a role ourself, we need to **turn off** the Cloud9 temporarily provided IAM credentials first.
 ![disableCredential.png](images/disableCredential.png)
 * In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with "**aws-cloud9**" prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
-![selectRole.png](/images/selectRole.png)
+![attachRole.png](/images/attachRole.png)
 * Click **Create new IAM role**.
 * Click **Create role**.
 * Click **EC2** then click **Next: Permissions**. Because Cloud9 is based on Amazon EC2, therefore we need to choose EC2.
 * Search and select "**AmazonEC2ContainerRegistryFullAccess**" then Click **Next: Review**.
 * For **Role Name** field, type "**AllowEC2AccessECR**" and click **Create Role**.
 * Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role you just create** and click  **Apply**.
-![refreshRole.png](images/refreshRole.png)
+![selectRole.png](images/selectRole.png)
 
 
 ### Create a Docker Image
-[Amazon ECS task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instance in your clusters. In this section, we create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
+[Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instance in your clusters. In this section, we create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
 
 
 * In [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/), click **Open IDE** buttom for the environent which you created.
 * In Cloud9 environment, we can use terminal in the lower panel. ![terminalBlock.png](images/terminalBlock.png)
-* Verify that whether Docker is installed in Cloud9 environment with following command. In general, Cloud9 has installed Docker by default and therefore we don't need to install ourselves. 
+* Verify that whether Docker is installed in Cloud9 environment with following command. In general, Cloud9 has installed Docker by default and therefore we don't need to install ourself. 
 	
 	  docker version
 
@@ -51,27 +51,27 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Press "**i**" key to enter insert mode and add the following content:
 
-	FROM ubuntu:12.04
+        FROM ubuntu:12.04
 
-	# Install dependencies
-      RUN apt-get update -y
-      RUN apt-get install -y apache2
+        # Install dependencies
+        RUN apt-get update -y
+        RUN apt-get install -y apache2
+        
+        # Install apache and write hellow world message
+        RUN echo "Hello World!" > /var/www/index.html
+        
+        # Configure apache
+        RUN a2enmod rewrite
+        RUN chown -R www-data:www-data /var/www
+        ENV APACHE_RUN_USER www-data
+        ENV APACHE_RUN_GROUP www-data
+        ENV APACHE_LOG_DIR /var/log/apache2
+        
+        EXPOSE 80
+        
+        CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
 
-      # Install apache and write hellow world message
-      RUN echo "Hello World!" > /var/www/index.html
 
-      # Configure apache
-      RUN a2enmod rewrite
-      RUN chown -R www-data:www-data /var/www
-      ENV APACHE_RUN_USER www-data
-      ENV APACHE_RUN_GROUP www-data
-      ENV APACHE_LOG_DIR /var/log/apache2
-
-      EXPOSE 80
-
-      CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
-    
-    
 * Press "**ESC**" key to return to command mode.
 * Type "**:wq!**" to save and exit.
 
