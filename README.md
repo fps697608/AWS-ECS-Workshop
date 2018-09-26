@@ -50,7 +50,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
     
 
 * Press "**i**" key to enter insert mode and add the following content:
-```
+      ```
       FROM ubuntu:12.04
 
       # Install dependencies
