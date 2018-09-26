@@ -16,10 +16,10 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * On the **Name environment**	page, for **Name**, type a name for your environment. Optionally add a description to your environment.
 * Leave everything as default and click Next Step.
 * Click **Create environment**. (It would  take 30~60 seconds to create your environment.)
-* We need to turn off the Cloud9 temporarily provided IAM credentials. 
+* Because we want to accomplish access control by attaching a role ourself, we need to turn off the Cloud9 temporarily provided IAM credentials first.
 ![disableCredential.png](images/disableCredential.png)
 * In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with "**aws-cloud9**" prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
-![attachRole.png](/images/attachRole.png)
+![selectRole.png](/images/selectRole.png)
 * Click **Create new IAM role**.
 * Click **Create role**.
 * Click **EC2** then click **Next: Permissions**. Because Cloud9 is based on Amazon EC2, therefore we need to choose EC2.
@@ -44,16 +44,16 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
   ![dockerVersion.png](/images/dockerVersion.png)
 
 
-* Create and edit a file called *Dockerfile*.  A Dockerfile is a manifest that describes the base image to use for your Docker image and what you want installed and running on it.
+* Use *vi* text editor to create and edit a file called "**_Dockerfile_**".  A *Dockerfile* is a manifest that describes the base image to use for your Docker image and what you want installed and running on it.
 
 	  vi Dockerfile
     
 
-* Add the following content:
+* Press "**i**" key to enter insert mode and add the following content:
 
-	  FROM ubuntu:12.04
+	FROM ubuntu:12.04
 
-	  # Install dependencies
+	# Install dependencies
       RUN apt-get update -y
       RUN apt-get install -y apache2
 
@@ -72,7 +72,8 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
       CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
     
     
-* Save and exit *Dockerfile*, press ESC button.
+* Press "**ESC**" key to return to command mode.
+* Type "**:wq!**" to save and exit.
 
 	  :wq!
 
@@ -81,13 +82,13 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 	  docker build -t hello-world .
     
-* Run docker images to verify that the image was created correctly.
+* List docker images to verify whether the image was created correctly. You should be able to see there is a image called "**hello-world**".
 
-	  docker images --filter reference=hello-world
+	  docker image ls
 
 *	Output:
 
-    ![2.png](/images/2.png)
+    ![dockerImages.png](/images/dockerImages.png)
  
 * Run the newly built image. The *–p 80:80* option maps the exposed port 80 on the container to port 80 on the host system.
 
@@ -99,7 +100,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 ### Create a Repository for ECS
 
-* In the **AWS Management Console**, on the **service**	menu, click **EC2 Container Service**.
+* In the **AWS Management Console**, on the **service** menu, click **EC2 Container Service**.
 
 * Confirm you are in **N.Virginia** region.
 
