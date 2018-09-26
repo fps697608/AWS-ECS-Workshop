@@ -69,8 +69,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
       EXPOSE 80
 
-      CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
-```
+      CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"] ```
 
 * Press "**ESC**" key to return to command mode.
 * Type "**:wq!**" to save and exit.
