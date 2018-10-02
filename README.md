@@ -1,11 +1,11 @@
 
 # Get Started with Docker & Amazon ECR
 
-In this lab, you'll create a Docker image which provides a simple web application, and push your image to Amazon EC2 Container Registry ([Amazon ECR](https://aws.amazon.com/tw/ecr/)) which is a fully-managed Docker container registry.
+In this lab, We will create a Docker image which provides a simple web application, push the image to Amazon Elastic Container Registry ([Amazon ECR](https://aws.amazon.com/tw/ecr/)) which is a fully-managed Docker container registry and run a container on Amazon Elastic Container Service([Amazon ECS](https://aws.amazon.com/tw/ecs)).  
 
 ## Prepare Cloud9 & CICD environment
 
->Make sure your are in US East (N. Virginia), which short name is us-east-1.
+>Make sure you are in US East (N. Virginia), which short name is us-east-1.
 
 ### Setup AWS Cloud9 environment
 In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming languages and useful tools. A cloud9 environment is based on an EC2 instance. We can  develope applications with a browser anywhere.
@@ -19,21 +19,21 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * Because we want to accomplish access control by attaching a role ourself, we need to **turn off** the Cloud9 temporarily provided IAM credentials first.
 ![disableCredential.png](images/disableCredential.png)
 * In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with "**aws-cloud9**" prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
-![attachRole.png](/images/attachRole.png)
+![attachRole.png](images/role.png)
 * Click **Create new IAM role**.
 * Click **Create role**.
 * Click **EC2** then click **Next: Permissions**. Because Cloud9 is based on Amazon EC2, therefore we need to choose EC2.
 * Search and select "**AmazonEC2ContainerRegistryFullAccess**" then Click **Next: Review**.
 * For **Role Name** field, type "**AllowEC2AccessECR**" and click **Create Role**.
-* Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role you just create** and click  **Apply**.
+* Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role we just create** and click  **Apply**.
 ![selectRole.png](images/selectRole.png)
 
 
 ### Create a Docker Image
-[Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instance in your clusters. In this section, we create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
+[Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instances in the cluster. In this section, we create a Docker image of a simple web application, and test it on local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
 
 
-* In [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/), click **Open IDE** buttom for the environent which you created.
+* In [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/), click **Open IDE** buttom for the environent which we created.
 * In Cloud9 environment, we can use terminal in the lower panel. ![terminalBlock.png](images/terminalBlock.png)
 * Verify that whether Docker is installed in Cloud9 environment with following command. In general, Cloud9 has installed Docker by default and therefore we don't need to install ourself. 
 	
@@ -41,10 +41,10 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
   The output should be like as following:
   
-  ![dockerVersion.png](/images/dockerVersion.png)
+  ![dockerVersion.png](images/dockerVersion.png)
 
 
-* Use *vi* text editor to create and edit a file called "**_Dockerfile_**".  A *Dockerfile* is a manifest that describes the base image to use for your Docker image and what you want installed and running on it.
+* Use *vi* text editor to create and edit a file called "**_Dockerfile_**".  A *Dockerfile* is a manifest that describes the base image to use for the Docker image and what we want installed and running on it.
 
 	  vi Dockerfile
     
@@ -77,32 +77,37 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 	  :wq!
 
-* Build the Docker image from your *Dockerfile*.
-  >Note: the “hello-world” is your docker image name.
+* Build the Docker image from *Dockerfile*.
+  >Note: the “hello-world” is the docker image name.
 
 	  docker build -t hello-world .
     
-* List docker images to verify whether the image was created correctly. You should be able to see there is a image called "**hello-world**".
+* List docker images to verify whether the image was created correctly. We should be able to see there is a image called "**hello-world**".
 
 	  docker image ls
 
-*	Output:
-
-    ![dockerImages.png](/images/dockerImages.png)
+    ![dockerImages.png](images/dockerImages.png)
  
-* Run the newly built image. The *–p 80:80* option maps the exposed port 80 on the container to port 80 on the host system.
+* Run the newly built image. The **_–p 80:80_** option maps the exposed port 80 on the container to port 80 on the host system.
 
 	  docker run -p 80:80 hello-world
 
-  >Note: output from the Apache web server is displayed in the terminal window. You can ignore the ”Could not reliably determine the server's fully qualified domain name” message.
+  We should be able to see the following message with a IP address which is the web server's IP address.
+  >Note: we can ignore the ”Could not reliably determine the server's fully qualified domain name” message from Apache web server.
+  
+  ![run.png](images/run.png)
 
+* Use **_Curl_** to fetch the index page from the **IP address** displayed in previous one step. We should be able to see a **_Hello World!_** message displayed on the screen.
 
+      curl [Server IP]
+
+  ![curl.png](images/curl.png)
 
 ### Create a Repository for ECS
 
-* In the **AWS Management Console**, on the **service** menu, click **EC2 Container Service**.
+* In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
-* Confirm you are in **N.Virginia** region.
+* Confirm that we are in **N.Virginia** region.
 
 * If a welcome page is displayed, click **Get started**, otherwise, click **Create repository**.
 
@@ -110,31 +115,57 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Click **Next step**.
 
-* You will see **Successfully created repository** message on the page.
+* We will see **Successfully created repository** message on the page.
 
 
-### Tag your Image and Push it to Amazon ECR
+### Tag Image and Push it to Amazon ECR
 
-* After creating an ECR repository, tag your image so you can push the image to this repository.
+* After creating an ECR repository, tag the image so we can push the image to our repository.
 
-	  docker tag hello-world:latest 64691493xxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
+	  docker tag hello-world:latest 2421964xxxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
 
-	>Note: “hello-world” is the name of docker image, “64691493xxxx” is your AWS account ID and “docker-demo” is the repository you created in previous step.
+	>Note: “hello-world” is the name of docker image, “2421964xxxxx” is the AWS account ID, "us-east-1" is the region and “docker-demo” is the repository we created in previous step.
 
-	Run the following command to push this image to your newly created AWS repository:
+
+	Run the following command to push this image to our newly created AWS repository:
 		
-      docker push 64691493xxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
+      docker push 2421964xxxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
     
-	>Note: “docker-demo” is the repository you created in previous step.
+	>Note: “docker-demo” is the repository we created in previous step.
 
-	![5.png](/images/5.png)
+	![push.png](images/push.png)
 
+### Create a Cluster in Amazon ECS
+Before running container on Amazon ECS, we need to create a cluster first. In Amazon ECS, we can create a Fargate cluster which is managed by AWS or create an EC2 cluster which we need to manage container instance ourself.
 
-### Create a task definition
+* In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
-* Back and continue to AWS ECS console.
+* On the left panel, click **Clusters**.
 
-* Click **Next Step**.
+* Click **Create Cluster**.
+
+* From here you can create a **Fargate cluster** or create an **EC2 cluster**.
+
+#### Fargate Cluster
+* Click **Networking only** and Click **Next step**.
+
+* Type a **Cluster Name**.
+
+* In **Networking** part, it's optional to create a new VPC for the cluster. In this tutorial, we create a new VPC here hence we **click the checkbox of create VPC**.
+* In **CIDR Block**, type **20.0.0.0/16**.
+* In **Subnet 1**, type **20.0.0.0/24**.
+* In **Subnet 2**, type **20.0.1.0/24**.
+* Click **create** and wait for the creation.
+
+### Create a Task Definition for Amazon ECS
+
+* Back to AWS ECS console.
+
+* Click **Task Definitions** on left panel.
+
+* Click **Create new Task Definition**.
+###
+
 
 * Leave all the task definition setting as default, click **Next Step**.
 
@@ -147,28 +178,28 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * Wait EC2 instance status – 0 of 13 complete.
 
 
-### Exam your Resource
+### Exam the Resource
 
 * In the **AWS Management Console**, on the **service** menu, click **EC2**.
 
 * Click Instance, select **ECS Instance-EC2ContainerService-default** instance.
 
-* On the **Description** tab in the lower pane, copy the **IPv4 Public IP** to your clipboard.
+* On the **Description** tab in the lower pane, copy the **IPv4 Public IP** to the clipboard.
 
-* Open a new browser tab, paste the IP address from your clipboard and hit Enter. The Container should appear.
+* Open a new browser tab, paste the IP address from the clipboard and hit Enter. The Container should appear.
 
-* In the browser, you will see:
+* In the browser, we should be able to see:
 
-	*Hello World!*
+	**_Hello World!_**
 
 
 
 
 ## Conclusion
 
-Congratulations! You now have learned how to:
+Congratulations! We now have learned how to:
 
 * Setup a Docker engine.
 * Create a container repository.
 * Tag and push image to Amazon ECR.
-
+* Run image on Amazon ECS.
