@@ -3,11 +3,11 @@
 
 In this lab, We will create a Docker image which provides a simple web application, push the image to Amazon Elastic Container Registry ([Amazon ECR](https://aws.amazon.com/tw/ecr/)) which is a fully-managed Docker container registry and run a container on Amazon Elastic Container Service([Amazon ECS](https://aws.amazon.com/tw/ecs)).  
 
-## Prepare Cloud9 & CICD environment
+## Prerequisite
 
->Make sure you are in US East (N. Virginia), which short name is us-east-1.
+>Make sure the region is US East (N. Virginia), which its short name is us-east-1.
 
-### Setup AWS Cloud9 environment
+## Setup AWS Cloud9 environment
 In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming languages and useful tools. A cloud9 environment is based on an EC2 instance. We can  develope applications with a browser anywhere.
 
 * Sign in to the AWS Management Console, and then open [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/).
@@ -29,7 +29,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 ![selectRole.png](images/selectRole.png)
 
 
-### Create a Docker Image
+## Create a Docker Image
 [Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) use Docker images to launch containers on the container instances in the cluster. In this section, we create a Docker image of a simple web application, and test it on local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so that we can use it in an ECS task definition.
 
 
@@ -103,7 +103,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
   ![curl.png](images/curl.png)
 
-### Create a Repository for ECS
+## Create a Repository for ECS
 
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
@@ -118,7 +118,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * We will see **Successfully created repository** message on the page.
 
 
-### Tag Image and Push it to Amazon ECR
+## Tag Image and Push it to Amazon ECR
 
 * After creating an ECR repository, tag the image so we can push the image to our repository.
 
@@ -135,8 +135,14 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 	![push.png](images/push.png)
 
-### Create a Cluster in Amazon ECS
-Before running container on Amazon ECS, we need to create a cluster first. In Amazon ECS, we can create a Fargate cluster which is managed by AWS or create an EC2 cluster which we need to manage container instance ourself.
+
+## Determine Using Amazon Fargates or EC2 instance
+In Amazon ECS, we can easily launch containers without management of instances by using Amazon Fargate. We can also launch containers on Amazon EC2 instances and manage instances ourself.  
+
+The rest of this tutorial is divided into two parts. For using Amazon Fargate, please step to **Using Amazon Fargate** part. For using Amazon EC2, please step to **Using Amazon EC2 Instance** part.
+
+
+## Using Amazon Fargate
 
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
@@ -144,9 +150,6 @@ Before running container on Amazon ECS, we need to create a cluster first. In Am
 
 * Click **Create Cluster**.
 
-* From here you can create a **Fargate cluster** or create an **EC2 cluster**.
-
-#### Fargate Cluster
 * Click **Networking only** and Click **Next step**.
 
 * Type a **Cluster Name**.
@@ -157,7 +160,20 @@ Before running container on Amazon ECS, we need to create a cluster first. In Am
 * In **Subnet 2**, type **20.0.1.0/24**.
 * Click **create** and wait for the creation.
 
-### Create a Task Definition for Amazon ECS
+## Using Amazon EC2 Instance
+* Click **EC2 Linux + Networking**
+
+
+
+
+
+
+
+
+
+
+
+## Create a Task Definition for Amazon ECS
 
 * Back to AWS ECS console.
 
@@ -178,7 +194,7 @@ Before running container on Amazon ECS, we need to create a cluster first. In Am
 * Wait EC2 instance status – 0 of 13 complete.
 
 
-### Exam the Resource
+## Exam the Resource
 
 * In the **AWS Management Console**, on the **service** menu, click **EC2**.
 
