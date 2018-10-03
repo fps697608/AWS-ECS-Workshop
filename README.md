@@ -11,20 +11,33 @@ In this lab, We will create a Docker image which provides a simple web applicati
 In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming languages and useful tools. A cloud9 environment is based on an EC2 instance. We can  develope applications with a browser anywhere.
 
 * Sign in to the AWS Management Console, and then open [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/).
+
 * If prompted, type the email address for the AWS account root user, and then choose Next.
+
 * If a welcome page is displayed, for **New AWS Cloud9 environment**, choose **Create environment**. Otherwise, choose **Create environment**.
+
 * On the **Name environment**	page, **type a name** for your environment. Optionally add a description to your environment.
+
 * Leave everything as default and click **Next Step**.
+
 * Click **Create environment**. (It would  take 30~60 seconds to create your environment.)
+
 * Because we want to accomplish access control by attaching a role ourself, we need to **turn off** the Cloud9 temporarily provided IAM credentials first.
 ![disableCredential.png](images/disableCredential.png)
-* In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with "**aws-cloud9**" prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
+
+* In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with `aws-cloud9` prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
 ![attachRole.png](images/role.png)
+
 * Click **Create new IAM role**.
+
 * Click **Create role**.
+
 * Click **EC2** then click **Next: Permissions**. Because Cloud9 is based on Amazon EC2, therefore we need to choose EC2.
-* Search and select "**AmazonEC2ContainerRegistryFullAccess**" then Click **Next: Review**.
-* For **Role Name** field, type "**AllowEC2AccessECR**" and click **Create Role**.
+
+* Search and select **AmazonEC2ContainerRegistryFullAccess** then Click **Next: Review**.
+
+* For **Role Name** field, type **AllowEC2AccessECR** and click **Create Role**.
+
 * Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role we just create** and click  **Apply**.
 ![selectRole.png](images/selectRole.png)
 
@@ -44,12 +57,12 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
   ![dockerVersion.png](images/dockerVersion.png)
 
 
-* Use *vi* text editor to create and edit a file called "**_Dockerfile_**".  A *Dockerfile* is a manifest that describes the base image to use for the Docker image and what we want installed and running on it.
+* Use *vi* text editor to create and edit a file called **_Dockerfile_**.  A *Dockerfile* is a manifest that describes the base image to use for the Docker image and what we want installed and running on it.
 
 	  vi Dockerfile
     
 
-* Press "**i**" key to enter insert mode and add the following content:
+* Press `i` key to enter insert mode and add the following content:
 
       FROM ubuntu:12.04
 
@@ -72,8 +85,9 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
       CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
 
 
-* Press "**ESC**" key to return to command mode.
-* Type "**:wq!**" to save and exit.
+* Press `ESC` key to return to command mode.
+
+* Type `:wq!` to save and exit.
 
 	  :wq!
 
@@ -82,13 +96,13 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 	  docker build -t hello-world .
     
-* List docker images to verify whether the image was created correctly. We should be able to see there is a image called "**hello-world**".
+* List docker images to verify whether the image was created correctly. We should be able to see there is a image called **_hello-world_**.
 
 	  docker image ls
 
     ![dockerImages.png](images/dockerImages.png)
  
-* Run the newly built image. The **_–p 80:80_** option maps the exposed port 80 on the container to port 80 on the host system.
+* Run the newly built image. The `–p 80:80` option maps the exposed port 80 on the container to port 80 on the host system.
 
 	  docker run -p 80:80 hello-world
 
@@ -144,6 +158,7 @@ The rest of this tutorial is divided into two parts. For using Amazon Fargate, p
 
 ## Using Amazon Fargate
 
+### Create Cluster
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
 * On the left panel, click **Clusters**.
@@ -155,14 +170,44 @@ The rest of this tutorial is divided into two parts. For using Amazon Fargate, p
 * Type a **Cluster Name**.
 
 * In **Networking** part, it's optional to create a new VPC for the cluster. In this tutorial, we create a new VPC here hence we **click the checkbox of create VPC**.
+
 * In **CIDR Block**, type **20.0.0.0/16**.
+
 * In **Subnet 1**, type **20.0.0.0/24**.
+
 * In **Subnet 2**, type **20.0.1.0/24**.
+
 * Click **create** and wait for the creation.
 
-## Using Amazon EC2 Instance
-* Click **EC2 Linux + Networking**
+### Create Task Definition for ECS
 
+
+
+## Using Amazon EC2 Instance
+
+### Create Cluster
+* In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
+
+* On the left panel, click **Clusters**.
+
+* Click **Create Cluster**.
+
+* Click **EC2 Linux + Networking** and click **Next step**.
+
+* Type a **Cluster Name**.
+
+* In Instance Configuration part, for **EC2 instance type**, select **t2.micro**.
+* For **Number of instances**, type **1**.
+
+* In Networking part, select **Create a new VPC**.
+
+* In **CIDR Block**, type **30.0.0.0/16**.
+
+* In **Subnet 1**, type **30.0.0.0/24**.
+
+* In **Subnet 2**, type **30.0.1.0/24**.
+
+* Leave other settings as default, click **create** and wait for the creation.
 
 
 
