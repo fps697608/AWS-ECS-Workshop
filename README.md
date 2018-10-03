@@ -25,8 +25,8 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * Because we want to accomplish access control by attaching a role ourself, we need to **turn off** the Cloud9 temporarily provided IAM credentials first.
 ![disableCredential.png](images/disableCredential.png)
 
-* In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with `aws-cloud9` prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
-![attachRole.png](images/role.png)
+* In [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?#Instances:sort=instanceId), right-click the EC2 instance named with **`aws-cloud9`** prefix and click **Instance Settings** -> **Attach/Replace IAM Role**.
+![attachRole.png](images/attachRole.png)
 
 * Click **Create new IAM role**.
 
@@ -62,7 +62,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 	  vi Dockerfile
     
 
-* Press `i` key to enter insert mode and add the following content:
+* Press **`i`** key to enter insert mode and add the following content:
 
       FROM ubuntu:12.04
 
@@ -85,9 +85,9 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
       CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
 
 
-* Press `ESC` key to return to command mode.
+* Press **`ESC`** key to return to command mode.
 
-* Type `:wq!` to save and exit.
+* Type **`:wq!`** to save and exit.
 
 	  :wq!
 
@@ -102,7 +102,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
     ![dockerImages.png](images/dockerImages.png)
  
-* Run the newly built image. The `–p 80:80` option maps the exposed port 80 on the container to port 80 on the host system.
+* Run the newly built image. The **`–p 80:80`** option maps the exposed port 80 on the container to port 80 on the host system.
 
 	  docker run -p 80:80 hello-world
 
