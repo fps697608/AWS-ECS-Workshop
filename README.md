@@ -1,13 +1,13 @@
 
 # Get Started with Docker & Amazon ECR
 
-In this lab, We will create a Docker image which provides a simple web application, push the image to Amazon Elastic Container Registry ([Amazon ECR](https://aws.amazon.com/tw/ecr/)) which is a fully-managed Docker container registry and run a container on Amazon Elastic Container Service([Amazon ECS](https://aws.amazon.com/tw/ecs)).  
+In this lab, we will create a Docker image which provides web service, push the image to Amazon Elastic Container Registry ([Amazon ECR](https://aws.amazon.com/tw/ecr/)) which is a fully-managed Docker container registry and run a container on Amazon Elastic Container Service([Amazon ECS](https://aws.amazon.com/tw/ecs)).  
 
 ## Prerequisite
 
 >Make sure the region is US East (N. Virginia), which its short name is us-east-1.
 
-## Setup AWS Cloud9 environment
+## Set Up AWS Cloud9 Environment
 In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming languages and useful tools. A cloud9 environment is based on an EC2 instance. We can  develope applications with a browser anywhere.
 
 * Sign in to the AWS Management Console, and then open [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/).
@@ -20,7 +20,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Leave everything as default and click **Next Step**.
 
-* Click **Create environment**. (It would  take 30~60 seconds to create your environment.)
+* Click **Create environment**. It might take 30~60 seconds to create your environment.
 
 * Because we want to accomplish access control by attaching a role ourself, we need to **turn off** the Cloud9 temporarily provided IAM credentials first.
 ![disableCredential.png](images/disableCredential.png)
@@ -36,7 +36,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Search and select **AmazonEC2ContainerRegistryFullAccess** then Click **Next: Review**.
 
-* For **Role Name** field, type **AllowEC2AccessECR** and click **Create Role**.
+* In **Role Name** field, type **AllowEC2AccessECR** and click **Create Role**.
 
 * Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role we just create** and click  **Apply**.
 ![selectRole.png](images/selectRole.png)
@@ -52,17 +52,17 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 	
 	  docker version
 
-  The output should be like as following:
+  The output is supposed to be like as following:
   
   ![dockerVersion.png](images/dockerVersion.png)
 
 
-* Use *vi* text editor to create and edit a file called **_Dockerfile_**.  A *Dockerfile* is a manifest that describes the base image to use for the Docker image and what we want installed and running on it.
+* Use **_vi_** text editor to create and edit a file called **_Dockerfile_**.  A *Dockerfile* is a manifest that describes the base image to use for the Docker image and what we want installed and running on it.
 
 	  vi Dockerfile
     
 
-* Press **`i`** key to enter insert mode and add the following content:
+* Press **`i`** key to enter insert mode and add the following script. The script will be executed while building Docker image and Apache web server will be set up. 
 
       FROM ubuntu:12.04
 
@@ -84,7 +84,6 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
       CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
 
-
 * Press **`ESC`** key to return to command mode.
 
 * Type **`:wq!`** to save and exit.
@@ -92,11 +91,11 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 	  :wq!
 
 * Build the Docker image from *Dockerfile*.
-  >Note: the “hello-world” is the docker image name.
+  >Note: "my_web_server" is the docker image name and "./" means the Dockerfile can be found in current directory.
 
-	  docker build -t hello-world .
+	  docker build -t my_web_server ./
     
-* List docker images to verify whether the image was created correctly. We should be able to see there is a image called **_hello-world_**.
+* List docker images to verify whether the image was created correctly. We should be able to see there is an image called **_my_web_server_**.
 
 	  docker image ls
 
@@ -104,14 +103,17 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
  
 * Run the newly built image. The **`–p 80:80`** option maps the exposed port 80 on the container to port 80 on the host system.
 
-	  docker run -p 80:80 hello-world
+	  docker run -p 80:80 my_web_server
 
-  We should be able to see the following message with a IP address which is the web server's IP address.
+  We should be able to see the following message with an **IP address** which is the web server's IP address.
   >Note: we can ignore the ”Could not reliably determine the server's fully qualified domain name” message from Apache web server.
   
   ![run.png](images/run.png)
 
-* Use **_Curl_** to fetch the index page from the **IP address** displayed in previous one step. We should be able to see a **_Hello World!_** message displayed on the screen.
+* Open another terminal window by pressing **`alt + t`** key or clicking the **`+`** button and **`New Terminal`**.
+  ![newTerminal.png](images/newTerminal.png)
+
+* Use **_Curl_** to fetch the index page from the **IP address** displayed in previous one step. We should be able to see an **_Hello World!_** message displayed on the screen.
 
       curl [Server IP]
 
@@ -123,29 +125,46 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Confirm that we are in **N.Virginia** region.
 
-* If a welcome page is displayed, click **Get started**, otherwise, click **Create repository**.
+* Click **Repositories** on left panel.
 
-* Type Repository name: **docker-demo**
+* Click **Create Repository**.
+
+* Type Repository name: **my_web_server**
 
 * Click **Next step**.
 
-* We will see **Successfully created repository** message on the page.
+* Click **Done** Once the repository has been created.
+
+* The web page will automatically jump to the page of the repository. **Copy the Repository URI and paste to a text file** because we will use the URI later.
+
+  ![URI.png](images/URI.png)
 
 
-## Tag Image and Push it to Amazon ECR
 
-* After creating an ECR repository, tag the image so we can push the image to our repository.
+## Tag Image and Push to Amazon ECR
+* Back to Cloud9 environment.
 
-	  docker tag hello-world:latest 2421964xxxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
+* After creating an ECR repository, type **`docker` `tag my_web_server:latest` `[Repository URI]:latest`** to tag the image so that we can push it to our repository later.
 
-	>Note: “hello-world” is the name of docker image, “2421964xxxxx” is the AWS account ID, "us-east-1" is the region and “docker-demo” is the repository we created in previous step.
+	  docker tag my_web_server:latest 2421xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/my_web_server:latest
 
+	>Note: the first “my_web_server” is the name of docker image, "latest" is the tag which represents the image is the latest version, “2421xxxxxxxx” is the AWS account ID, "us-east-1" is the region and the second “my_web_server” is the repository we created in previous step.
 
-	Run the following command to push this image to our newly created AWS repository:
+* Before pushing the image to our remote repository on Amazon ECR, we need to login to Amazon ECR first. Type `aws ecr get-login --no-include-email --region us-east-1` to get the login command from AWS.
+
+      aws ecr get-login --no-include-email --region us-east-1
+
+* **Copy** the output command.
+
+  ![login.png](images/login.png)
+
+* **Paste** the command in terminal and **execute**, we should be able to see **_Login Succeeded_** message.
+
+* After login, type **`docker` `push` `[Repository URI]:latest`** to push this image to our newly created repository on Amazon ECR:
 		
-      docker push 2421964xxxxx.dkr.ecr.us-east-1.amazonaws.com/docker-demo:latest
+      docker push 2421xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/my_web_server:latest
     
-	>Note: “docker-demo” is the repository we created in previous step.
+	>Note: “my_web_server” is the repository we created in previous step.
 
 	![push.png](images/push.png)
 
@@ -153,10 +172,10 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 ## Determine Using Amazon Fargates or EC2 instance
 In Amazon ECS, we can easily launch containers without management of instances by using Amazon Fargate. We can also launch containers on Amazon EC2 instances and manage instances ourself.  
 
-The rest of this tutorial is divided into two parts. For using Amazon Fargate, please step to **Using Amazon Fargate** part. For using Amazon EC2, please step to **Using Amazon EC2 Instance** part.
+The rest of this tutorial is divided into two parts. For using Amazon Fargate, please step to **Use Amazon Fargate** part. For using Amazon EC2, please step to **Use Amazon EC2 Instance** part.
 
 
-## Using Amazon Fargate
+## Use Amazon Fargate
 
 ### Create Cluster
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
@@ -167,7 +186,7 @@ The rest of this tutorial is divided into two parts. For using Amazon Fargate, p
 
 * Click **Networking only** and Click **Next step**.
 
-* Type a **Cluster Name**.
+* In **Cluster Name**, Type **FargateCluster**.
 
 * In **Networking** part, it's optional to create a new VPC for the cluster. In this tutorial, we create a new VPC here hence we **click the checkbox of create VPC**.
 
@@ -179,11 +198,89 @@ The rest of this tutorial is divided into two parts. For using Amazon Fargate, p
 
 * Click **create** and wait for the creation.
 
-### Create Task Definition for ECS
+### Create Task Definition for Amazon ECS
+
+* Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Task Definitions** on left panel.
+
+* Click **Create new Task Definition**.
+
+* Select **Fargate** type and click **Next Step**.
+
+* In **Task Definition Name**, type **runWebServerWithFargate**.
+
+* Step to Task Size part, In **Task Memory (GB)**, select **0.5GB**.
+
+* In **Task CPU (vCPU)**, select **0.25 vCPU**.
+
+* In **Container Definetions** part,  click **Add container** button to add a container. In Amazon ECS, we can define several containers for a task. In this tutorial, we only define one container which will serve as a web server. 
+
+* In **Container name**, type **my_web_server**.
+
+* In **Image**, type **`[Repository URI]:latest`**.
+
+      2421xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/my_web_server:latest
+
+* In **Memory Limits (MB)**, Select **Soft limit** and type **128**.
+
+  ![container.png](images/container.png)
+
+* In **Port mappings**, type **80** and select **tcp**.
+
+* Click **Add**.
+
+* Click **Create** and wait for the creation of Task Definition.
+
+### Create Service on Amazon ECS
+After creating task definition, we can start a task standalone or start several tasks simultaneously by creating a service. In this tutorial, we will create a service. 
+
+* Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Clusters** on left panel.
+
+* Click **FargateCluster**.
+
+* In **Services** tab, click **Create**.
+
+* In **Launch type**, select **FARGATE**.
+
+* In **Task Definition**, select **runWebServerUsingFargate**.
+
+* In **Service name**, type **myWebServerUsingFargate**.
+
+* In **Number of tasks**, type **1**. If you want to create a service which starts several tasks simultaneously, you can type the number of tasks you need here. In this tutorial, we only need a task hence we type 1 here.
+
+* Click **Next step**.
+
+* In **Cluster VPC**, select **the VPC with CIDR 20.0.0.0/16**.
+
+* In **Subnet**, add **both subnet**.
+
+* In **Auto-assign public IP**, select **ENABLE**.
+
+* Leave the rest of setting as default and click **Next step**.
+
+* Click **Next step**.
+
+* Click **Create Service** and wait for creation.
+
+* Click **View Service**.
+
+* In Service page, click **Tasks** tab below and we can see there is a tasks.
+
+* Click **the task** in task list, refresh the page until the **Last status** is **RUNNING** rather than **PENDING**.
+
+* Copy the **public IP**.
+
+  ![IP.png](images/IP.png)
+
+* Open a new browser tab, paste the IP address and press Enter. In the browser, we should be able to see an **_Hello World!_** message.
+
+  ![browser.png](images/browser.png)
+	
 
 
 
-## Using Amazon EC2 Instance
+
+
+## Use Amazon EC2 Instance
 
 ### Create Cluster
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
@@ -194,10 +291,11 @@ The rest of this tutorial is divided into two parts. For using Amazon Fargate, p
 
 * Click **EC2 Linux + Networking** and click **Next step**.
 
-* Type a **Cluster Name**.
+* In **Cluster Name**, type **EC2Cluster**.
 
-* In Instance Configuration part, for **EC2 instance type**, select **t2.micro**.
-* For **Number of instances**, type **1**.
+* In Instance Configuration part, in **EC2 instance type**, select **t2.micro**.
+
+* In **Number of instances**, type **1**.
 
 * In Networking part, select **Create a new VPC**.
 
@@ -209,49 +307,84 @@ The rest of this tutorial is divided into two parts. For using Amazon Fargate, p
 
 * Leave other settings as default, click **create** and wait for the creation.
 
+### Create a Task Definition for Amazon ECS
 
-
-
-
-
-
-
-
-
-## Create a Task Definition for Amazon ECS
-
-* Back to AWS ECS console.
-
-* Click **Task Definitions** on left panel.
+* Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Task Definitions** on left panel.
 
 * Click **Create new Task Definition**.
-###
 
+* Select **EC2** type and click **Next Step**.
 
-* Leave all the task definition setting as default, click **Next Step**.
+* In **Task Definition Name**, type **runWebServerWithEC2**.
 
-* Leave all the configure service and network access as default, click **Next Step**.
+* In **Network Mode**, select **\<default\>**.
 
-* Confirm and leave the configure cluster and security group as default, click **Review & launch**.
+* Step to Task Size part, In **Task Memory (MiB)**, type **512**.
 
-* Click **Launch instance & run service**.
+* In **Task CPU (unit)**, type **0.25 vCPU**.
 
-* Wait EC2 instance status – 0 of 13 complete.
+* In **Container Definetions** part,  click **Add container** button to add a container. In Amazon ECS, we can define several containers for a task. In this tutorial, we only define one container which will serve as a web server. 
 
+* In **Container name**, type **my_web_server**.
 
-## Exam the Resource
+* In **Image**, type **`[Repository URI]:latest`**.
 
-* In the **AWS Management Console**, on the **service** menu, click **EC2**.
+      2421xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/my_web_server:latest
 
-* Click Instance, select **ECS Instance-EC2ContainerService-default** instance.
+* In **Memory Limits (MB)**, Select **Soft limit** and type **128**.
 
-* On the **Description** tab in the lower pane, copy the **IPv4 Public IP** to the clipboard.
+  ![container.png](images/container.png)
 
-* Open a new browser tab, paste the IP address from the clipboard and hit Enter. The Container should appear.
+* In **Port mappings**, type **80** for Host port, type **80** for Container port and select **tcp**.
 
-* In the browser, we should be able to see:
+* Click **Add**.
 
-	**_Hello World!_**
+* Click **Create** and wait for the creation of Task Definition.
+
+### Create Service on Amazon ECS
+After creating task definition, we can start a task standalone or start several tasks simultaneously by creating a service. In this tutorial, we will create a service. 
+
+* Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Clusters** on left panel.
+
+* Click **EC2Cluster**.
+
+* In **Services** tab, click **Create**.
+
+* In **Launch type**, select **EC2**.
+
+* In **Task Definition**, select **runWebServerWithEC2**.
+
+* In **Service name**, type **myWebServerUsingEC2**.
+
+* In **Service type**, select **REPLICA**.
+
+* In **Number of tasks**, type **1**. If you want to create a service which starts several tasks simultaneously, you can type the number of tasks you need here. In this tutorial, we only need a task hence we type 1 here.
+
+* Click **Next step**.
+
+* Click **Next step**.
+
+* Click **Next step**.
+
+* Click **Create Service** and wait for the creation.
+
+* Click **View Service**.
+
+* In Service page, click **Tasks** tab below and we can see there is a tasks.
+
+* Click **the task** in task list, refresh the page until the **Last status** is **RUNNING** rather than **PENDING**.
+
+* In **Containers** part, click **the triangle arrow** below to expand the table.
+
+  ![expand.png](images/expand.png)
+
+* Copy the **External Link** in **Network bindings** part.
+
+  ![link.png](images/link.png)
+
+* Open a new browser tab, paste the external link and press Enter. In the browser, we should be able to see an **_Hello World!_** message.
+
+  ![browser2.png](images/browser2.png)
 
 
 
