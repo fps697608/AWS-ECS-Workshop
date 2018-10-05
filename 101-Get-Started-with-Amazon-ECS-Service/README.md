@@ -113,9 +113,9 @@ After creating task definition, we can start a task standalone or start several 
 
   ![browser.png](../images/browser.png)
 	
+#### Conclusion
 
-
-
+You have learned how to create task definition and launch container on Amazon ECS.
 
 
 ## Use Amazon EC2 Instance
@@ -223,3 +223,8 @@ After creating task definition, we can start a task standalone or start several 
 * Open a new browser tab, paste the external link and press Enter. In the browser, we should be able to see an **_Hello World!_** message.
 
   ![browser2.png](../images/browser2.png)
+
+
+#### Conclusion
+
+You have learned how to create task definition and launch container on Amazon ECS.

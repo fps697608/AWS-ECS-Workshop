@@ -185,4 +185,4 @@ Congratulations! We now have learned how to:
 
 ## Next Level
 
-* [101-Get-Started-with-Amazon-ECS-Service](101-Get-Started-with-Amazon-ECS-Service/README.md)
+* [101-Get-Started-with-Amazon-ECS-Service](../101-Get-Started-with-Amazon-ECS-Service/README.md)
