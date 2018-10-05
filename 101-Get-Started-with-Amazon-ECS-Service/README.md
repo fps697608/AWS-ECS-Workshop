@@ -4,7 +4,7 @@ In this tutorial, we will create a container which serves as a web server by usi
 ## Prerequisites 
 * Make sure the region is **US East (N. Virginia)**, which its short name is **us-east-1**.
 
-* Make sure there exists **executable image** stored in Amazon ECR. For more detail, please refer to [Get Started with Docker & Amazon ECR](../README.md).
+* Make sure there exists **executable image** stored in Amazon ECR. For more details, please refer to [Get Started with Docker & Amazon ECR](../README.md).
 
 
 ## Determine Using Amazon Fargates or EC2 instance
