@@ -9,15 +9,13 @@ In this series, we will create a Docker image which provides web service, push t
 
 ## List of Content
 
-Level 100:
-
-* [100-Get-Started-with-Docker-and-Amazon-ECR](100-Get-Started-with-Docker-and-Amazon-ECR/README.md)
-* [101-Get-Started-with-Amazon-ECS-Service](101-Get-Started-with-Amazon-ECS-Service/README.md)
-
 Level 200:
 
-* 200-AutoScaling-on-Amazon-ECS **#WIP**
+* [201-Get-Started-with-Docker-and-Amazon-ECR](201-Get-Started-with-Docker-and-Amazon-ECR/README.md)
+* [202-Get-Started-with-Amazon-ECS-Service](202-Get-Started-with-Amazon-ECS-Service/README.md)
+* 203-AutoScaling-on-Amazon-ECS **#WIP**
 
 Level 300:
 
-* 300-Building-CI/CD-Using-Amazon-ECS **#WIP**
+* 301-Mounting-Volume-on-Amazon-ECS **#WIP**
+* 302-Building-CI/CD-Using-Amazon-ECS **#WIP**
