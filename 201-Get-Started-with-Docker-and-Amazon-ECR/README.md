@@ -38,7 +38,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * In **Role Name** field, type **AllowEC2AccessECR** and click **Create Role**.
 
-* Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role we just create** and click  **Apply**.
+* Back to Attach/Replace IAM Role panel, click **Refresh** button, **select the role we just create** and click **Apply**.
 ![selectRole.png](../images/selectRole.png)
 
 
@@ -183,6 +183,13 @@ Congratulations! We now have learned how to:
 * Create a image repository on Amazon ECR.
 * Tag and push image to repository.
 
+## Cleaning Resources
+
+To avoid excessive billing, please delete the following resources when you have finished your practice.
+
+* Cloud9 environment
+* Image repository on ECR
+
 ## Next Level
 
-* [101-Get-Started-with-Amazon-ECS-Service](../101-Get-Started-with-Amazon-ECS-Service/README.md)
+* [202-Get-Started-with-Amazon-ECS-Service](../202-Get-Started-with-Amazon-ECS-Service/README.md)

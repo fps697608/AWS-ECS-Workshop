@@ -15,7 +15,7 @@ The following content is divided into two parts. For using Amazon Fargate, pleas
 
 ## Use Amazon Fargate
 
-#### Create Cluster
+### Create Cluster
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
 * On the left panel, click **Clusters**.
@@ -28,15 +28,15 @@ The following content is divided into two parts. For using Amazon Fargate, pleas
 
 * In **Networking** part, it's optional to create a new VPC for the cluster. In this tutorial, we create a new VPC here hence we **click the checkbox of create VPC**.
 
-* In **CIDR Block**, type **20.0.0.0/16**.
+* In **CIDR Block**, type **10.1.0.0/16**.
 
-* In **Subnet 1**, type **20.0.0.0/24**.
+* In **Subnet 1**, type **10.1.0.0/24**.
 
-* In **Subnet 2**, type **20.0.1.0/24**.
+* In **Subnet 2**, type **10.1.1.0/24**.
 
 * Click **create** and wait for the creation.
 
-#### Create Task Definition for Amazon ECS
+### Create Task Definition for Amazon ECS
 
 * Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Task Definitions** on left panel.
 
@@ -68,7 +68,7 @@ The following content is divided into two parts. For using Amazon Fargate, pleas
 
 * Click **Create** and wait for the creation of Task Definition.
 
-#### Create Service on Amazon ECS
+### Create Service on Amazon ECS
 After creating task definition, we can start a task standalone or start several tasks simultaneously by creating a service. In this tutorial, we will create a service. 
 
 * Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Clusters** on left panel.
@@ -87,7 +87,7 @@ After creating task definition, we can start a task standalone or start several 
 
 * Click **Next step**.
 
-* In **Cluster VPC**, select **the VPC with CIDR 20.0.0.0/16**.
+* In **Cluster VPC**, select **the VPC with CIDR 10.1.0.0/16**.
 
 * In **Subnet**, add **both subnet**.
 
@@ -113,14 +113,24 @@ After creating task definition, we can start a task standalone or start several 
 
   ![browser.png](../images/browser.png)
 	
-#### Conclusion
+### Conclusion
 
 You have learned how to create task definition and launch container on Amazon ECS.
+
+### Cleaning Resources
+
+To avoid excessive billing, please delete the following resources when you have finished your practice.
+
+* Service or Task of ECS cluster
+* EC2 instances (If using EC2 instance as cluster nodes)
+* The VPC you created
+* The cluster you created (Delete the VPC first before deleting cluster.)
+
 
 
 ## Use Amazon EC2 Instance
 
-#### Create Cluster
+### Create Cluster
 * In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
 
 * On the left panel, click **Clusters**.
@@ -137,15 +147,15 @@ You have learned how to create task definition and launch container on Amazon EC
 
 * In Networking part, select **Create a new VPC**.
 
-* In **CIDR Block**, type **30.0.0.0/16**.
+* In **CIDR Block**, type **10.2.0.0/16**.
 
-* In **Subnet 1**, type **30.0.0.0/24**.
+* In **Subnet 1**, type **10.2.0.0/24**.
 
-* In **Subnet 2**, type **30.0.1.0/24**.
+* In **Subnet 2**, type **10.2.1.0/24**.
 
 * Leave other settings as default, click **create** and wait for the creation.
 
-#### Create a Task Definition for Amazon ECS
+### Create a Task Definition for Amazon ECS
 
 * Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Task Definitions** on left panel.
 
@@ -179,7 +189,7 @@ You have learned how to create task definition and launch container on Amazon EC
 
 * Click **Create** and wait for the creation of Task Definition.
 
-#### Create Service on Amazon ECS
+### Create Service on Amazon ECS
 After creating task definition, we can start a task standalone or start several tasks simultaneously by creating a service. In this tutorial, we will create a service. 
 
 * Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Clusters** on left panel.
@@ -225,6 +235,15 @@ After creating task definition, we can start a task standalone or start several 
   ![browser2.png](../images/browser2.png)
 
 
-#### Conclusion
+### Conclusion
 
 You have learned how to create task definition and launch container on Amazon ECS.
+
+### Cleaning Resources
+
+To avoid excessive billing, please delete the following resources when you have finished your practice.
+
+* Service or Task of ECS cluster
+* EC2 instances (If using EC2 instance as cluster nodes)
+* The VPC you created
+* The cluster you created (Delete the VPC first before deleting cluster.)
