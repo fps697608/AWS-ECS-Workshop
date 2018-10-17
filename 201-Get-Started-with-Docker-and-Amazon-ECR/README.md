@@ -72,7 +72,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
       RUN apt-get update -y
       RUN apt-get install -y apache2
 
-      # Install apache and write hellow world message
+      # Install apache and write hello world message
       RUN echo "Hello World!" > /var/www/index.html
 
       # Configure apache
