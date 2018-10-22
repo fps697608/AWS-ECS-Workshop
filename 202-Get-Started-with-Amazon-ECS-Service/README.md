@@ -121,7 +121,7 @@ After creating task definition, we can start a task standalone or start several 
 
 You have learned how to create task definition and launch container on Amazon ECS.
 
-### Cleaning Resources
+### Clean Resources
 
 To avoid excessive billing, please delete the following resources when you have finished your practice.
 
@@ -243,7 +243,7 @@ After creating task definition, we can start a task standalone or start several 
 
 You have learned how to create task definition and launch container on Amazon ECS.
 
-### Cleaning Resources
+### Clean Resources
 
 To avoid excessive billing, please delete the following resources when you have finished your practice.
 

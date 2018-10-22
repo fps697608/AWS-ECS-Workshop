@@ -7,7 +7,7 @@ After learning how to create a service on Amazon ECS, we will learn how to auto 
 
 * Make sure you have created service on Amazon ECS by following [Get Started with Amazon ECS Service](../202-Get-Started-with-Amazon-ECS-Service/README.md).
 
-## Auto Scale Service While Using Fargate
+## Auto Scale Fargate Service on Amazon ECS
 While using Fargate, we can scale the service to fit our requrement without taking care of instances. In this section, we will create a service which can adjust the number of tasks automatically. The task we defined includes a container serving as a web server.
 
 * In Amazon ECS console, click **Clusters** on left panel. 
@@ -98,17 +98,43 @@ While using Fargate, we can scale the service to fit our requrement without taki
 
 * For **Automatic task scaling policies** part, in **Scaling policy type**, select **Target tracking**.
 
-* Type a name for **Policy name**.
+* In **Policy name**, type **myScalingPolicy**.
 
 * In **ECS service metric**, select **ALBRequestCountPerTarget**.
 
-* In **Target value**, type **5**.
+* In **Target value**, type **3**.
 
 * Click **Next step**.
 
 * Click **Create Service** and wait for creation.
 
 * Click **View Service**.
+
+* Go to [**CloudWatch Management Console**](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboard:).
+
+* Click **Alarms** on left penal.
+
+* In search bar, type **AutoScalingFargateService** to search alarm.
+
+* Select the alarm with **`AlarmHigh`** suffix.
+
+* Click **Actions -> Modify**.
+
+* In **for** attribute, modify it as **1 out of 1 datapoints**.
+
+![alarm.png](../images/alarm.png)
+
+* Click **Save Changes**.
+
+* Select the alarm with **`AlarmLow`** suffix.
+
+* Click **Actions -> Modify**.
+
+* In **for** attribute, modify it as **1 out of 1 datapoints**.
+
+![alarm2.png](../images/alarm2.png)
+
+* Click **Save Changes**.
 
 * Go to [**EC2 console**](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1), click **Load Balancers** on left panel.
 
@@ -118,15 +144,15 @@ While using Fargate, we can scale the service to fit our requrement without taki
 
 * Open a new tab in your browser, paste **the DNS name** and press Enter. You should be able to see the **hello world** message.
 
-![browser3.png](../images/browser3.png)
+![browser3.png](../images/browser3.png) 
 
-* **Refresh** the page at least **5** times, and wait for a while.
+* **Refresh** the page **at least 4 times**, and wait for a minute.
 
-* Back to ECS -> Clusters -> FargateCluster >  AutoScalingFargateService.
+* Back to **ECS console -> Clusters -> FargateCluster -> AutoScalingFargateService**.
 
-* You should be able to see that there are two tasks below.
+* Keep refreshing the page and you should be able to see that there are two tasks running now (or one is provisioning and one is running).
 
-
+![provisioning.png](../images/provisioning.png)
 
 
 ## Use EC2
