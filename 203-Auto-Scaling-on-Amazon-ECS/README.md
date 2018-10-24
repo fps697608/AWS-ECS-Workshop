@@ -52,9 +52,9 @@ In this section, we will set up a service which can adjust the number of tasks i
 
 * In Step3: Configure Security Groups, select **Create a new security group**.
 
-* In **Security group name**, type **AllowHTTPForLoadBalancer**.
+* In **Security group name**, type **AllowTCPForLoadBalancer**.
 
-* In **Type**, select **HTTP**.
+* In **Type**, select **All TCP**.
 
 * In **Source**, select **Anywhere**.
 
@@ -84,13 +84,13 @@ In this section, we will set up a service which can adjust the number of tasks i
 
 * Click **Add to load balancer** button.
 
-* In **Listener Port**, select **80:HTTP**.
+* In **Listener Port**, select **80:HTTP (create new with 81 port)**.
 
-* In **Target group name**, select **FargateContainers** which we created before.
+* In **Target group name**, select **FargateContainers (create new)** which we created before.
 
->Note: if your are setting an EC2 launch type service with **bridge** networking mode, you have to **create new** and **type a name** here.
+>Note: if your are setting an EC2 launch type service with **bridge** networking mode, you have to select **create new** here.
 
-* In **Evaluation order**, type **100**.
+* In **Evaluation order**, type **a number between 0~1000**.
 
 * Click **Next step** button.
 
@@ -99,8 +99,6 @@ In this section, we will set up a service which can adjust the number of tasks i
 * In **Minimum number of tasks**, type **1**.
 
 * In **Maximum number of tasks**, type **2**.
-
-* In **IAM role for Service Auto Scaling**, select **Create new role**.
 
 * For **Automatic task scaling policies** part, in **Scaling policy type**, select **Target tracking**.
 
