@@ -46,7 +46,11 @@ The following content is divided into two parts. For using Amazon Fargate, pleas
 
 * In **Task Definition Name**, type **runWebServerWithFargate**.
 
-* Step to Task Size part, In **Task Memory (GB)**, select **0.5GB**.
+* In **Network Mode**, select **awsvpc**.
+
+* Step to Task execution IAM role part, in **Task execution role**, select **Create new role**.
+
+* Step to Task Size part, in **Task Memory (GB)**, select **0.5GB**.
 
 * In **Task CPU (vCPU)**, select **0.25 vCPU**.
 
@@ -117,7 +121,7 @@ After creating task definition, we can start a task standalone or start several 
 
 You have learned how to create task definition and launch container on Amazon ECS.
 
-### Cleaning Resources
+### Clean Resources
 
 To avoid excessive billing, please delete the following resources when you have finished your practice.
 
@@ -167,7 +171,7 @@ To avoid excessive billing, please delete the following resources when you have 
 
 * In **Network Mode**, select **\<default\>**.
 
-* Step to Task Size part, In **Task Memory (MiB)**, type **512**.
+* Step to Task Size part, In **Task Memory (MiB)**, type **256**.
 
 * In **Task CPU (unit)**, type **0.25 vCPU**.
 
@@ -183,7 +187,7 @@ To avoid excessive billing, please delete the following resources when you have 
 
   ![container.png](../images/container.png)
 
-* In **Port mappings**, type **80** for Host port, type **80** for Container port and select **tcp**.
+* In **Port mappings**, type **0** for Host port(or leave it as blank), type **80** for Container port and select **tcp**.
 
 * Click **Add**.
 
@@ -239,7 +243,7 @@ After creating task definition, we can start a task standalone or start several 
 
 You have learned how to create task definition and launch container on Amazon ECS.
 
-### Cleaning Resources
+### Clean Resources
 
 To avoid excessive billing, please delete the following resources when you have finished your practice.
 

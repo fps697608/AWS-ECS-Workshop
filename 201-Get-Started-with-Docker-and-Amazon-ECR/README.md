@@ -183,7 +183,7 @@ Congratulations! We now have learned how to:
 * Create a image repository on Amazon ECR.
 * Tag and push image to repository.
 
-## Cleaning Resources
+## Clean Resources
 
 To avoid excessive billing, please delete the following resources when you have finished your practice.
 
