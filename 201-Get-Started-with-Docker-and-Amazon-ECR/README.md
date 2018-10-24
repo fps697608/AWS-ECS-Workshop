@@ -71,9 +71,13 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
       # Install dependencies
       RUN apt-get update -y
       RUN apt-get install -y apache2
+      RUN apt-get install -y php5
+      RUN apt-get install -y wget
 
-      # Install apache and write hello world message
-      RUN echo "Hello World!" > /var/www/index.html
+      # Download source code
+      RUN wget --no-check-certificate https://raw.githubusercontent.com/fps697608/AWS-ECS-Workshop/master/src/getContainerID.php
+      RUN mv getContainerID.php /var/www/index.php
+      RUN rm /var/www/index.html
 
       # Configure apache
       RUN a2enmod rewrite
