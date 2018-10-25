@@ -1,14 +1,14 @@
 # Get Started with Amazon ECS Service
 In this tutorial, we will create a container which serves as a web server by using Amazon Elastic Container Service ([Amazon ECS](https://aws.amazon.com/ecs)). Before starting, make sure there exists executable image stored in Amazon Elastic Container Registry ([Amazon ECR](https://aws.amazon.com/ecr)). 
 
-## Prerequisites 
+## Prerequisites
 * Make sure the region is **US East (N. Virginia)**, which its short name is **us-east-1**.
 
 * Make sure there exists **executable image** stored in Amazon ECR. For more details, please refer to [Get Started with Docker & Amazon ECR](../README.md).
 
 
 ## Determine Using Amazon Fargates or EC2 instance
-In Amazon ECS, we can easily launch containers without management of instances by using Amazon Fargate. We can also launch containers on Amazon EC2 instances and manage instances ourself.  
+In Amazon ECS, we can easily launch containers without management of instances by using Amazon Fargate. We can also launch containers on Amazon EC2 instances and manage instances ourself.
 
 The following content is divided into two parts. For using Amazon Fargate, please step to **Use Amazon Fargate** part. For using Amazon EC2, please step to **Use Amazon EC2 Instance** part.
 
@@ -73,7 +73,7 @@ The following content is divided into two parts. For using Amazon Fargate, pleas
 * Click **Create** and wait for the creation of Task Definition.
 
 ### Create Service on Amazon ECS
-After creating task definition, we can start a task standalone or start several tasks simultaneously by creating a service. In this tutorial, we will create a service. 
+After creating task definition, we can start a task standalone or start several tasks simultaneously by creating a service. In this tutorial, we will create a service.
 
 * Back to [Amazon ECS console](https://console.aws.amazon.com/ecs/home), click **Clusters** on left panel.
 
@@ -113,7 +113,7 @@ After creating task definition, we can start a task standalone or start several 
 
   ![IP.png](../images/IP.png)
 
-* Open a new browser tab, paste the IP address and press Enter. In the browser, we should be able to see an **_Hello World!_** message.
+* Open a new browser tab, paste the IP address and press Enter. In the browser, we should be able to see the container's UUID and using port.
 
   ![browser.png](../images/browser.png)
 	
@@ -234,7 +234,7 @@ After creating task definition, we can start a task standalone or start several 
 
   ![link.png](../images/link.png)
 
-* Open a new browser tab, paste the external link and press Enter. In the browser, we should be able to see an **_Hello World!_** message.
+* Open a new browser tab, paste the external link and press Enter. In the browser, we should be able to see the container's UUID and using port.
 
   ![browser2.png](../images/browser2.png)
 

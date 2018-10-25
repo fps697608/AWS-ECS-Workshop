@@ -64,7 +64,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 	  vi Dockerfile
     
 
-* Press **`i`** key to enter insert mode and add the following script. The script will be executed while building Docker image and Apache web server will be set up. 
+* Press **`i`** key to enter insert mode and add the following script. The script will be executed while building Docker image and Apache web server will be set up. The home page we use is programmed in PHP. It will print out the container's UUID (Universal Unique Identity) once being visited.
 
       FROM ubuntu:12.04
 
@@ -119,7 +119,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 * Open another terminal window by pressing **`alt + t`** key or clicking the **`+`** button and **`New Terminal`**.
   ![newTerminal.png](../images/newTerminal.png)
 
-* Use **_Curl_** to fetch the index page from the **IP address** displayed in previous one step. We should be able to see an **_Hello World!_** message displayed on the screen.
+* Use **_Curl_** to fetch the index page from the **IP address** displayed in previous one step. We should be able to see the container's UUID and using port are displayed on the screen.
 
       curl [Server IP]
 

@@ -146,17 +146,21 @@ In this section, we will set up a service which can adjust the number of tasks i
 
 ![DNS.png](../images/DNS.png)
 
-* Open a new tab in your browser, paste **the DNS name** and press Enter. You should be able to see the **hello world** message.
+* Open a new tab in your browser, paste **the DNS name** (if you are launching EC2 container type, add **`:81`** at the end of DNS name) and **press Enter**. You should be able to see the container's UUID and using port.
 
-![browser3.png](../images/browser3.png) 
+![browser3.png](../images/browser3.png)
 
-* **Refresh** the page **at least 4 times**, and wait for a minute.
+* **Refresh** the page **at least 4 times**, and wait for a while. (This might take 3~10 minutes.)
 
 * Back to **ECS console -> Clusters -> FargateCluster (EC2Cluster) -> AutoScalingFargateService (AutoScalingEC2Service)**.
 
 * Keep refreshing the page and you should be able to see that there are two tasks running now (or one is provisioning and one is running).
 
 ![provisioning.png](../images/provisioning.png)
+
+* Meanwhile, back to the page which displays container's UUID and refresh the page. You should be able to see a new container UUID since the second container has been launched. 
+
+![browser4.png](../images/browser4.png)
 
 
 <!-- 
