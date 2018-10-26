@@ -116,21 +116,12 @@ After creating task definition, we can start a task standalone or start several 
 * Open a new browser tab, paste the IP address and press Enter. In the browser, we should be able to see the container's UUID and using port.
 
   ![browser.png](../images/browser.png)
-	
+
 ### Conclusion
 
-You have learned how to create task definition and launch container on Amazon ECS.
+Congratulations! You have learned how to create task definition and launch service(container) on Amazon ECS.
 
-### Clean Resources
-
-To avoid excessive billing, please delete the following resources when you have finished your practice.
-
-* Service or Task of ECS cluster
-* EC2 instances (If using EC2 instance as cluster nodes)
-* The VPC you created
-* The cluster you created (Delete the VPC first before deleting cluster.)
-
-
+Please step to **Clean Resources** part if you no longer need the resources.
 
 ## Use Amazon EC2 Instance
 
@@ -241,13 +232,19 @@ After creating task definition, we can start a task standalone or start several 
 
 ### Conclusion
 
-You have learned how to create task definition and launch container on Amazon ECS.
+Congratulations! You have learned how to create task definition and launch service(container) on Amazon ECS.
 
-### Clean Resources
+Please step to **Clean Resources** part if you no longer need the resources.
+
+## Clean Resources
 
 To avoid excessive billing, please delete the following resources when you have finished your practice.
 
 * Service or Task of ECS cluster
 * EC2 instances (If using EC2 instance as cluster nodes)
 * The VPC you created
-* The cluster you created (Delete the VPC first before deleting cluster.)
+* The cluster you created (Delete the VPC first before deleting cluster)
+
+## Next Level
+
+* [203-Auto-Scaling-on-Amazon-ECS](../203-Auto-Scaling-on-Amazon-ECS/README.md)
