@@ -163,7 +163,7 @@ In this section, we will set up a service which can adjust the number of tasks i
 ![browser4.png](../images/browser4.png)
 
 # Auto Scale EC2 Instances on Amazon ECS
-If you want to launch container with EC2 launch type, you need to take care of your machine. In this section, we will set up  auto scaling service for EC2 instances which containers run on.
+If you want to launch container with EC2 launch type, you need to take care of your machines. In this section, we will set up auto scaling service for EC2 instances which containers run on.
 
 > Note: Before starting this section, make sure you have **created an ECS service with EC2 launch type** by following our previous tutorials. 
 
