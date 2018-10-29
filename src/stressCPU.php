@@ -5,6 +5,6 @@
 		echo "CPU is burning right now.";
 	} else {
 		echo("Start burning CPU for 5 minutes...<br>");
-		exec("stress -c 1 -t 300 > uselessFile");
+		exec("stress -c 1 -t 300 > /dev/null &");
 	}
 ?>
