@@ -7,7 +7,7 @@ In this tutorial, we will create a container which serves as a web server by usi
 * Make sure there exists **executable image** stored in Amazon ECR. For more details, please refer to [Get Started with Docker & Amazon ECR](../README.md).
 
 
-## Determine Using Amazon Fargates or EC2 instance
+## Determine Using Amazon Fargates or EC2 Instance
 In Amazon ECS, we can easily launch containers without management of instances by using Amazon Fargate. We can also launch containers on Amazon EC2 instances and manage instances ourself.
 
 The following content is divided into two parts. For using Amazon Fargate, please step to **Use Amazon Fargate** part. For using Amazon EC2, please step to **Use Amazon EC2 Instance** part.
@@ -16,7 +16,7 @@ The following content is divided into two parts. For using Amazon Fargate, pleas
 ## Use Amazon Fargate
 
 ### Create Cluster
-* In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
+* In the **AWS Management Console**, on the **service** menu, click **ECS**.
 
 * On the left panel, click **Clusters**.
 
@@ -83,7 +83,7 @@ After creating task definition, we can start a task standalone or start several 
 
 * In **Launch type**, select **FARGATE**.
 
-* In **Task Definition**, select **runWebServerUsingFargate**.
+* In **Task Definition**, select **runWebServerWithFargate**.
 
 * In **Service name**, type **myWebServerUsingFargate**.
 
@@ -95,7 +95,7 @@ After creating task definition, we can start a task standalone or start several 
 
 * In **Subnet**, add **both subnet**.
 
-* In **Auto-assign public IP**, select **ENABLE**.
+* In **Auto-assign public IP**, select **ENABLED**.
 
 * Leave the rest of setting as default and click **Next step**.
 
@@ -126,7 +126,7 @@ Please step to **Clean Resources** part if you no longer need the resources.
 ## Use Amazon EC2 Instance
 
 ### Create Cluster
-* In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
+* In the **AWS Management Console**, on the **service** menu, click **ECS**.
 
 * On the left panel, click **Clusters**.
 
@@ -147,6 +147,8 @@ Please step to **Clean Resources** part if you no longer need the resources.
 * In **Subnet 1**, type **10.2.0.0/24**.
 
 * In **Subnet 2**, type **10.2.1.0/24**.
+
+* In **Security group inbound rules**, type **0-65535** for **Port range**.
 
 * Leave other settings as default, click **create** and wait for the creation.
 

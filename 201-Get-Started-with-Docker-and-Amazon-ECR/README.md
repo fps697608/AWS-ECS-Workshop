@@ -8,7 +8,7 @@ In this tutorial, we will create a Docker image which provides web service, push
 Make sure the region is **US East (N. Virginia)**, which its short name is **us-east-1**.
 
 ## Set Up AWS Cloud9 Environment
-In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming languages and useful tools. A cloud9 environment is based on an EC2 instance. We can  develope applications with a browser anywhere.
+In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming languages and useful tools. A cloud9 environment is based on an EC2 instance. We can  develop applications with a browser anywhere.
 
 * Sign in to the AWS Management Console, and then open [AWS Cloud9 console](https://console.aws.amazon.com/cloud9/).
 
@@ -129,7 +129,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 ## Create a Repository for ECS
 
-* In the **AWS Management Console**, on the **service** menu, click **Elastic Container Service**.
+* In the **AWS Management Console**, on the **service** menu, click **ECS**.
 
 * Confirm that we are in **N.Virginia** region.
 
@@ -137,7 +137,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Click **Create Repository**.
 
-* Type Repository name: **my_web_server**
+* Type Repository name: **my_web_server**.
 
 * Click **Next step**.
 
