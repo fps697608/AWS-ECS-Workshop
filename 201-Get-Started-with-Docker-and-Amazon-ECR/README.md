@@ -76,7 +76,9 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
       # Download source code
       RUN wget --no-check-certificate https://raw.githubusercontent.com/fps697608/AWS-ECS-Workshop/master/src/getContainerID.php
+      RUN wget --no-check-certificate https://raw.githubusercontent.com/fps697608/AWS-ECS-Workshop/master/src/stressCPU.php
       RUN mv getContainerID.php /var/www/index.php
+      RUN mv stressCPU.php /var/www/stressCPU.php
       RUN rm /var/www/index.html
 
       # Configure apache
