@@ -52,7 +52,7 @@ In this section, we will set up a service which can adjust the number of tasks i
 
 * In Step3: Configure Security Groups, select **Create a new security group**.
 
-* In **Security group name**, type **AllowTCPForLoadBalancer**.
+* In **Security group name**, type **AllowAllTCPForLoadBalancer**.
 
 * In **Type**, select **All TCP**.
 
@@ -165,6 +165,8 @@ In this section, we will set up a service which can adjust the number of tasks i
 # Auto Scale EC2 Instances on Amazon ECS
 If you want to launch container with EC2 launch type, you need to take care of your machine. In this section, we will set up  auto scaling service for EC2 instances which containers run on.
 
+> Note: Before starting this section, make sure you have **created an ECS service with EC2 launch type** by following our previous tutorials. 
+
 * In AWS console, click **Services** on top panel.
 
 * Click **EC2**.
@@ -181,7 +183,7 @@ If you want to launch container with EC2 launch type, you need to take care of y
 
 * Click **Save** button on upper right side.
 
-* Switch to **Scaling Policies** tab.
+* Switch to tab **Scaling Policies**.
 
 * Click **Add policy** button.
 
@@ -189,13 +191,30 @@ If you want to launch container with EC2 launch type, you need to take care of y
 
 * In **Metric Type** select **Average CPU Utilization**.
 
-* In **Target value**, type **60**.
+* In **Target value**, type **15**.
 
 * In **Instances need**, type **300** seconds for warm up after scaling.
 
 * Click **Create** button on upper right side.
 
-* Click 
+* Back to [**EC2 console**](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1), click **Load Balancers** on left panel.
+
+* Click **ECSEC2LoadBalancer** which we created before, in **Description** tab, copy the **DNS name**.
+![DNS2.png](../images/DNS2.png)
+
+* Open a new tab in your browser, paste **the DNS name**, add **`:81/stressCPU.php`** at the end of DNS name) and **press Enter**. At this moment, the container will execute **`Stress`** which is a CPU burning tool on Linux. The CPU utilization rate will become high hence our auto scaling policy for ECS instance will be triggered.
+
+* **Refresh the page**, you should be able to see the web page notifys that the CPU is burning right now for **5** minutes.
+
+![browser5.png](../images/browser5.png)
+
+* Wait for **3~5** minutes and go to [EC2 console](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceType), you should be able to see there is a **new EC2 instance** launched by our auto scaling policy.
+
+![newInstance.png](../images/newInstance.png)
+
+* Meanwhile, in [ECS console](https://console.aws.amazon.com/ecs/home?region=us-east-1#/clusters), you should be able to see there are **2 container instances** in cluster.
+
+![newInstance2.png](../images/newInstance2.png)
 
 
 ## Conclusion
