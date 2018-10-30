@@ -219,6 +219,22 @@ If you want to launch container with EC2 launch type, you need to take care of y
 
 ## Conclusion
 
+Congratulations, you have learned how to:
+* Auto scale service on ECS
+* Auto scale EC2 instance on ECS
+* Deploy load balancer to forward requests.
+
 ## Clean Resources
 
+To avoid excessive billing, please delete the following resources when you have finished your practice.
+
+* Service or Task of ECS cluster
+* Scaling policy for EC2 instance
+* EC2 instances (If using EC2 instance as cluster nodes)
+* The VPC you created
+* The cluster you created (Delete the VPC first before deleting cluster)
+
+
+<!--
 ## Next Level
+->
