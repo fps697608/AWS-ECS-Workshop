@@ -13,7 +13,7 @@ Level 200:
 
 * [201-Get-Started-with-Docker-and-Amazon-ECR](201-Get-Started-with-Docker-and-Amazon-ECR/README.md)
 * [202-Get-Started-with-Amazon-ECS-Service](202-Get-Started-with-Amazon-ECS-Service/README.md)
-* [203-Auto-Scaling-on-Amazon-ECS](203-Auto-Scaling-on-Amazon-ECS/README.md) **#WIP**
+* [203-Auto-Scaling-on-Amazon-ECS](203-Auto-Scaling-on-Amazon-ECS/README.md)
 
 Level 300:
 
