@@ -66,13 +66,12 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
 
 * Press **`i`** key to enter insert mode and add the following script. The script will be executed while building Docker image and Apache web server will be set up. The home page we use is programmed in PHP. It will print out the container's UUID (Universal Unique Identity) once being visited.
 
-      FROM ubuntu:12.04
+      FROM php:7.2-apache
 
       # Install dependencies
       RUN apt-get update -y
-      RUN apt-get install -y apache2
-      RUN apt-get install -y php5
       RUN apt-get install -y wget
+      RUN apt-get install -y stress
 
       # Download source code
       RUN wget --no-check-certificate https://raw.githubusercontent.com/fps697608/AWS-ECS-Workshop/master/src/getContainerID.php
@@ -81,16 +80,7 @@ In this lab, we use AWS Cloud9 which is a cloud IDE intergrating programming lan
       RUN mv stressCPU.php /var/www/stressCPU.php
       RUN rm /var/www/index.html
 
-      # Configure apache
-      RUN a2enmod rewrite
-      RUN chown -R www-data:www-data /var/www
-      ENV APACHE_RUN_USER www-data
-      ENV APACHE_RUN_GROUP www-data
-      ENV APACHE_LOG_DIR /var/log/apache2
-
       EXPOSE 80
-
-      CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
 
 * Press **`ESC`** key to return to command mode.
 
